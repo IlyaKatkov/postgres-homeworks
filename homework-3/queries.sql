@@ -15,14 +15,13 @@ WHERE customers.city ='London' AND employees.city ='London' AND shippers.company
 SELECT products.product_name, products.units_in_stock, suppliers.contact_name, suppliers.phone
 FROM products
 JOIN suppliers ON products.supplier_id = suppliers.supplier_id AND discontinued = 0 AND units_in_stock < 25
-JOIN categories
-ON products.category_id = categories.category_id AND category_name IN('Dairy Products','Condiments')
+JOIN categories ON products.category_id = categories.category_id AND category_name IN('Dairy Products','Condiments')
 ORDER BY units_in_stock
 
 -- 3. Список компаний заказчиков (company_name из табл customers), не сделавших ни одного заказа
 SELECT company_name
 FROM customers
-LEFT JOIN orders USING (customer_id)
+LEFT JOIN orders USING(customer_id)
 WHERE orders.customer_id IS NULL
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
